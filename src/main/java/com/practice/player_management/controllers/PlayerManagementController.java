@@ -31,9 +31,9 @@ public class PlayerManagementController {
         }
         try {
             playerService.playerRegister(player);
-            return "redirect:/player_management";
+            return "redirect:/players_response";
         } catch (CodenameGroupUnavailableException e) {
-            bindingResult.rejectValue("group_codename", "error.group_codename", e.getMessage());
+            model.addAttribute("errorMessage", e.getMessage());
             return getViewAndModel(model, player);
         }
     }
