@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Player Management</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-5">Cadastro de jogador </h1>
+    <form th:action="@{player-management}" th:method="post" th:object="${player}">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" th:field="*{name}" required>
+        </div>
+        <div>
+            <label for="email" th:field="*{email}">E-mail:</label>
+            <input type="text" id="email" required>
+        </div>
+        <div>
+            <label for="phone" th:field="*{phone}">Phone:</label>
+            <input type="text" id="phone">
+        </div>
+        <div>
+            <label>Escolhe um grupo de codinomes</label>
+            <div th:each="group: ${groupsCodenames}"></div>
+            <input type="radio" th:field="*{groupCodename}" th:value="${group.name()}" th:id="${group.name()} required">
+            <label th:for="${group.name()}" th:text="${group.getName()}"></label>
+        </div>
+        <div th:if="${#fields.hasErrors('groupCodename')}" th:errors="*{groupCodename}">Seleção de grupo de codinome é
+            obrigatória</div>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">Send</button>
+            <a th:href="@{/listing-players}" class="btn btn-primary">Listar Jogadores</a>
+
+        </div>
+        <div th:if="${errorMessage}">
+            <p th:text="${errorMessage}" style="color: red;"></p>
+        </div>
+    </form>
+</div>
+</body>
+</html>
