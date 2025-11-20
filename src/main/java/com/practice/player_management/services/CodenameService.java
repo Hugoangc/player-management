@@ -35,7 +35,7 @@ public class CodenameService {
 
     private List<String> searchCodenames(GroupCodename groupCodename) throws Exception{
         var codenameRepository = codenameRepositoryFactory.create(groupCodename);
-        return codenameRepository.searchCodenames();
+        return codenameRepository.searchCodenames().getCodenames();
     }
 
 

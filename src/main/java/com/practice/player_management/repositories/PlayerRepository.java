@@ -15,24 +15,23 @@ public class PlayerRepository {
 
     public Player save(Player player) {
         jdbcClient.sql("""
-                INSERT INTO PLAYERS (name, email, phone, codename, codename_group)
-                VALUES (:name, :email, :phone, :codename, :groupCodename)
-                """)
+        INSERT INTO PLAYERS (name, email, phone, codename, codename_group)
+        VALUES (:name, :email, :phone, :codename, :codenameGroup)
+        """)
                 .param("name", player.name())
                 .param("email", player.email())
                 .param("phone", player.phone())
                 .param("codename", player.codename())
-                // O parametro abaixo (:groupCodename) alimenta a coluna codename_group
-                .param("groupCodename", player.groupCodename().name())
+                .param("codenameGroup", player.codenameGroup().name())
                 .update();
+
 
         return player;
     }
 
-    public List<String> listCodenamesAvailable(GroupCodename groupCodename) {
-        // CORREÇÃO: query usa 'codename_group' (do seu schema)
-        return jdbcClient.sql("SELECT distinct(codename) FROM PLAYERS WHERE codename_group = :groupCodename")
-                .param("groupCodename", groupCodename.name())
+    public List<String> listCodenamesAvailable(GroupCodename codenameGroup) {
+        return jdbcClient.sql("SELECT distinct(codename) FROM PLAYERS WHERE codename_group = :codenameGroup")
+                .param("codenameGroup", codenameGroup.name())
                 .query(String.class)
                 .list();
     }
@@ -44,12 +43,15 @@ public class PlayerRepository {
     }
 
     public List<String> listCodenamesPerGroup(GroupCodename groupCodename) {
-        // CORREÇÃO PRINCIPAL DO ERRO 500:
-        // 1. 'codenames' mudou para 'codename' (singular)
-        // 2. 'group_codename' mudou para 'codename_group' (do seu schema)
-        return jdbcClient.sql("SELECT distinct(codename) FROM PLAYERS WHERE codename_group = :groupCodename")
-                .param("groupCodename", groupCodename.name())
+        return jdbcClient.sql("SELECT distinct(codename) FROM PLAYERS WHERE codename_group = :codenameGroup")
+                .param("codenameGroup", groupCodename.name())
                 .query(String.class)
+                .list();
+    }
+
+    public List<Player> playersResponse(){
+        return jdbcClient.sql("SELECT * FROM PLAYERS ORDER BY LOWER(name), id")
+                .query(Player.class)
                 .list();
     }
 }

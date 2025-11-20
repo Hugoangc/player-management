@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Listing Players</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
+<body>
+<div class="container">
+    <h1 class="mt-5">Player listing</h1>
+    <table class="table table-striped mt-3">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>E-mail</th>
+            <th>Phone</th>
+            <th>Codenome</th>
+            <th>Group</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="player : ${players}">
+            <td th:text="${player.name}"></td>
+            <td th:text="${player.email}"></td>
+            <td th:text="${player.phone}"></td>
+            <td th:text="${player.codename}"></td>
+            <td th:text="${player.codenameGroup.name}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Botão de Cadastrar -->
+    <div>
+        <a th:href="@{/player-management}" class="btn btn-primary">New Player</a>
+    </div>
+</div>
+</body>
+
+</html>

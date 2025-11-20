@@ -18,14 +18,19 @@ public class PlayerService {
     private final CodenameService codenameService;
 
     public Player playerRegister(Player player) throws Exception{
-        var codenameInUse = listCodenamesInUse(player.groupCodename());
-        var newCodename = codenameService.generateCodename(player.groupCodename(), codenameInUse);
-        var newPlayer = new Player(player.name(), player.email(), player.phone(), newCodename, player.groupCodename());
+        var codenameInUse = listCodenamesInUse(player.codenameGroup());
+        var newCodename = codenameService.generateCodename(player.codenameGroup(), codenameInUse);
+        var newPlayer = new Player(player.name(), player.email(), player.phone(), newCodename, player.codenameGroup());
         return playerRepository.save(newPlayer);
     }
 
+    public List<Player> playersResponse(){
+        return playerRepository.playersResponse();
+    }
 
     private List<String> listCodenamesInUse(@NotNull GroupCodename groupCodename) {
         return playerRepository.listCodenamesPerGroup(groupCodename);
     }
+
+
 }

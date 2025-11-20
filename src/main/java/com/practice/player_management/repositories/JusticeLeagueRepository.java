@@ -1,6 +1,7 @@
 package com.practice.player_management.repositories;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.practice.player_management.dtos.CodenameDTO;
 import com.practice.player_management.dtos.JusticeLeagueDTO;
 import com.practice.player_management.enums.GroupCodename;
 import org.springframework.stereotype.Repository;
@@ -11,7 +12,7 @@ import java.util.List;
 @Repository
 public class JusticeLeagueRepository implements CodenameRepository {
     @Override
-    public List<String> searchCodenames() throws Exception {
+    public CodenameDTO searchCodenames() throws Exception {
         var codenames = RestClient.builder()
                 .baseUrl(GroupCodename.JUSTICE_LEAGUE.getUrl())
                 .build()
@@ -20,7 +21,6 @@ public class JusticeLeagueRepository implements CodenameRepository {
                 .body(String.class);
 
         var xmlMapper = new XmlMapper();
-        var justiceLeague = xmlMapper.readValue(codenames, JusticeLeagueDTO.class);
-        return justiceLeague.getCodenames();
+        return xmlMapper.readValue(codenames, JusticeLeagueDTO.class);
     }
 }

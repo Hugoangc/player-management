@@ -7,3 +7,4 @@ CREATE TABLE IF NOT EXISTS PLAYERS (
     codename_group VARCHAR(255) NOT NULL,
     CONSTRAINT unique_codename_group UNIQUE (codename, codename_group)
     );
+

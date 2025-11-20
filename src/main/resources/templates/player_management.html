@@ -30,7 +30,7 @@
             <label>Escolha um grupo de codinomes:</label>
             <div th:each="group : ${groupsCodenames}" class="form-check">
                 <input class="form-check-input" type="radio"
-                       th:field="*{groupCodename}"
+                       th:field="*{codenameGroup}"
                        th:value="${group}"
                        th:id="${group.name()}" required>
 
@@ -38,7 +38,7 @@
                        th:for="${group.name()}"
                        th:text="${group.name}"></label>
             </div>
-            <div th:if="${#fields.hasErrors('groupCodename')}" th:errors="*{groupCodename}" class="text-danger"></div>
+            <div th:if="${#fields.hasErrors('codenameGroup')}" th:errors="*{codenameGroup}" class="text-danger"></div>
         </div>
 
         <div class="mt-3">

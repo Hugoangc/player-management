@@ -10,9 +10,10 @@ public record Player (
         @NotBlank @Email String email,
         String phone,
         String codename,
-        @NotNull GroupCodename groupCodename
+        @NotNull GroupCodename codenameGroup
+
 ){
     public Player withCodename(String codename){
-        return new Player(name, email, phone, codename, groupCodename);
+        return new Player(name, email, phone, codename, codenameGroup);
     }
 }
