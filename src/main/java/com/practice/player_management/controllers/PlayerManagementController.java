@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @AllArgsConstructor
 @Controller
-@RequestMapping("player_management")
+@RequestMapping("/player_management")
 public class PlayerManagementController {
     private final PlayerService playerService;
 

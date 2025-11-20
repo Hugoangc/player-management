@@ -22,10 +22,5 @@ record CodenamesDTO(
         @JacksonXmlProperty(localName = "codinome")
         List<String> codenames
 ) { }
-//record CodenamesDTO(
-//    @JacksonXmlElementWrapper(useWrapping = false)
-//    @JacksonXmlProperty(localName = "codinome")
-//    List<String> codenames){
-//
-//    }
+
 
