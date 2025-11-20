@@ -3,6 +3,7 @@ package com.practice.player_management.services;
 
 import com.practice.player_management.components.CodenameRepositoryFactory;
 import com.practice.player_management.enums.GroupCodename;
+import com.practice.player_management.exceptions.CodenameGroupUnavailableException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ public class CodenameService {
     public String generateCodename(GroupCodename groupCodename, List<String> codenameInUse ) throws Exception {
         var codenamesAvailable = listCodenamesAvailable(groupCodename, codenameInUse);
         if(codenamesAvailable.isEmpty()){
-            throw new RuntimeException("Codename not available");
+            throw new CodenameGroupUnavailableException();
         }
         var sortedCodename = sortCodename(codenamesAvailable);
         return sortedCodename;

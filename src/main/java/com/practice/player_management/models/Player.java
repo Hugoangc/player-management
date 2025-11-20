@@ -4,7 +4,9 @@ import com.practice.player_management.enums.GroupCodename;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.validation.annotation.Validated;
 
+@Validated
 public record Player (
         @NotBlank String name,
         @NotBlank @Email String email,
