@@ -13,20 +13,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @AllArgsConstructor
 @Controller
-@RequestMapping("player-management")
+@RequestMapping("player_management")
 public class PlayerManagementController {
     private final PlayerService playerService;
 
     @GetMapping
     public String PlayerManagementPage(Model model) {
+        model.addAttribute("player", new Player(null,null,null,null,null));
         model.addAttribute("groupsCodenames", GroupCodename.values());
-        return "player-management";
+        return "player_management";
     }
     @PostMapping
     public String playerManagement(@ModelAttribute Player player){
         try {
             playerService.playerRegister(player);
-            return "redirect:/player-management";
+            return "redirect:/player_management";
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
